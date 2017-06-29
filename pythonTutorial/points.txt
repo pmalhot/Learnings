@@ -100,6 +100,78 @@ args = [3, 6]
 In the same fashion, dictionaries can deliver keyword arguments with the **-operator.
 
 4.7.5 Lambda Expressions
+Small anonymous functions can be created with lambda keyword.
+
+1. Used as function objects. Use case to return  a function.
+
+def make_incrementor(n):
+...     return lambda x: x + n
+...
+>>> f = make_incrementor(42)
+>>> f(0)
+42
+>>> f(1)
+43
+
+2. Pass function as an argument.
+
+>>> pairs = [(1, 'one'), (2, 'two'), (3, 'three'), (4, 'four')]
+>>> pairs.sort(key=lambda pair: pair[1])
+>>> pairs
+[(4, 'four'), (1, 'one'), (3, 'three'), (2, 'two')]
+
+C5: Data Structures
+
+5.1 Useful list functions.
+list.extend(L) 
+list.insert(i,x)
+list.remove(x)
+list.pop([i]): Removes last if no element specified.
+list.index(x)
+list.count(x)
+list.sort(...)  //Read in detail
+list.reverse()
+
+Method that only modify the list have None return type. This is a design principle for all mutable data structures in python.
+
+Use lists as stacks with append and pop.
+Use lists as queue with append and pop(0). Note: Lists are not efficient fot this. While appends and pops from the end of the list are fast, doing inserts or pops from the beginning of a list is slow. 
+Instead use collections.deque designed to have fast appends and pops from both ends.
+
+5.1.3 Functional programming tools
+There are 3 built in functions very useful with lists. 
+1. Filter
+filter(function,sequence) returns sequence items where function(item) is true
+
+def f(x): return x % 3 == 0 or x % 5 == 0
+...
+>>> filter(f, range(2, 25))
+[3, 5, 6, 9, 10, 12, 15, 18, 20, 21, 24]
+
+2. Map 
+map(function,sequence) returns sequence of items post applying function on them
+
+def cube(x): return x*x*x
+...
+>>> map(cube, range(1, 11))
+[1, 8, 27, 64, 125, 216, 343, 512, 729, 1000]
+
+3. Reduce
+reduce(function,sequence) returns a single value constructed by calling the binary function on the first two sequence items, then on the result and next item, and so on. 
+
+def add(x,y): return x+y
+...
+>>> reduce(add, range(1, 11))
+55
+
+Some additional nuances mentioned in the tutorial.
+
+5.1.4 List Comprehensions
+
+ 
+
+
+
 
 
 
