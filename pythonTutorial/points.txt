@@ -1,0 +1,112 @@
+Points of interest:
+Immutable  //   Immutable
+Lists      //   Strings
+           //
+
+"expressions on the right are all evaluated first before any of the assignments take place." 
+
+"any non zero integer value is true. Empty sequences are false"
+"Note that each line within a basic block must be indented by the same amount"
+
+
+C4: More control flow tools
+If you need to modify the sequence you are iterating over while inside the loop (for example to duplicate selected items), it is recommended that you first make a copy. Slice makes it easy.
+
+for w in words[:]:  # Loop over a slice copy of the entire list.
+...     if len(w) > 6:
+...         words.insert(0, w)
+...
+
+range functions takes negative step value as well.
+Break like C breaks out of innermost enclosing for OR while loop.
+
+Loop statements may have an else clause; it is executed when the loop terminates through exhaustion of the list (with for) or when the condition becomes false (with while), but not when the loop is terminated by a break statement
+
+The pass statement does nothing(Seriously!). Commonly used for creating minimal classes OR as a placeholder for a function or condtional body when working on new code.
+
+The keyword def introduces a function definition.
+  The first statement of function body can be string literal aka docstring. There are tools! which use docstrings to automatically produce online or printed documentation, or let the user interactively browse through the code. 
+
+The execution of a function introduces a new symbol table used for the local variables of the function. More precisely, all variable assignments in a function store the value in the local symbol table; whereas variable references first look in the local symbol table, then in the local symbol tables of enclosing functions, then in the global symbol table, and finally in the table of built-in names. Thus, global variables cannot be directly assigned a value within a function (unless named in a global statement), although they may be referenced.
+
+When a function calls another function, a new local symbol table is created for that call.
+Actually, call by object reference would be a better description, since if a mutable object is passed, the caller will see any changes the callee makes to it (items inserted into a list).
+
+A function definition introduces the function name in the current symbol table. The value of the function name has a type that is recognized by the interpreter as a user-defined function. This value can be assigned to another name which can then also be used as a function. This serves as a general renaming mechanism.
+
+In fact, even functions without a return statement do return a value, albeit a rather boring one. This value is called None (it’s a built-in name).
+
+A method is a function that 'belongs' to an object and is named obj.methodname .
+Note: list.append(a) is more efficient than list = list + [a] .
+
+Defining functions with variable number of arguments:
+1. Default argument values 
+
+The most useful form is to specify a default value for one or more arguments
+   def ask_ok(prompt, retries=4, complaint='Yes or no, please!'):
+Note: Not sure if you can selectively give values for default arguments on the right before giving values for all default arguments on the left. Same as C/C++ problem?
+
+The default values are evaluated at the point of function definition in the defining scope, so that
+
+i = 5
+
+def f(arg=i):
+    print arg
+
+i = 6
+f()
+will print 5.
+
+Important warning: The default value is evaluated only once. Makes a difference when the default is a mutable object. eg:
+def f(a, L=[]):
+    L.append(a)
+    return L
+
+print f(1)
+print f(2)
+print f(3)
+This will print
+
+[1]
+[1, 2]
+[1, 2, 3]
+If you don’t want the default to be shared between subsequent calls, you can write the function like this instead:
+
+def f(a, L=None):
+    if L is None:
+        L = []
+    L.append(a)
+    return L
+
+2. Keyword arguments
+
+In a function call, keyword arguments must follow positional arguments.
+All the keyword arguments must match of the arguments accepted by the function and their order is not important.
+No argument may receive a value more than once.
+
+When a final formal parameter of the form **name is present, it receives a dictionary (see Mapping Types — dict) containing all keyword arguments except for those corresponding to a formal parameter. This may be combined with a formal parameter of the form *name (described in the next subsection) which receives a tuple containing the positional arguments beyond the formal parameter list. (*name must occur before **name.). See example in: https://docs.python.org/2/tutorial/controlflow.html#id2
+
+3. Arbitrary arguments lists
+
+Finally, the least frequently used option is to specify that a function can be called with an arbitrary number of arguments. These arguments will be wrapped up in a tuple (see Tuples and Sequences). Before the variable number of arguments, zero or more normal arguments may occur.
+
+4.7.4 Unpacking Argument Lists
+write the function call with the *-operator to unpack the arguments out of a list or tuple
+
+args = [3, 6]
+>>> range(*args)            # call with arguments unpacked from a list
+[3, 4, 5]
+
+In the same fashion, dictionaries can deliver keyword arguments with the **-operator.
+
+4.7.5 Lambda Expressions
+
+
+
+
+
+
+
+
+
+
